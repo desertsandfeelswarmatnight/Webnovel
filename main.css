@@ -1,0 +1,15 @@
+#qwer {
+    display: flex;
+    column-count: 1;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+#qwe {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    background-color: #b6634a;
+    margin: 50px 0px 0px 0px;
+}
