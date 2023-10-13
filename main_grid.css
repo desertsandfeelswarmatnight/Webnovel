@@ -10,9 +10,20 @@
 }
 
 #qwe {
-    background-color: cadetblue;
+/*    background-color: cadetblue;*/
+    background-color: #eee;
     width: 100%;
     height: 400px;
     margin-bottom: 50px;
     display: flex;
+    white-space: pre-line;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#text {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px 0px 20px;
 }
