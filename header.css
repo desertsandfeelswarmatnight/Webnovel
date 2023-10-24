@@ -11,6 +11,8 @@
         font-style: normal;   }
 
 body {
+    margin: 0;
+    padding: 0;
     font-family: 'MaruBuri-Regular';
 }
 
@@ -55,6 +57,7 @@ body {
 .header_title>h1 {
     font-family: 'TmonMonsori';
 }
+
 #header_border1 {
     grid-column: 1/2;
     grid-row: 1/2;
@@ -65,8 +68,4 @@ body {
     grid-column: 3/4;
     grid-row: 1/2;
     border-bottom: solid 1px #eee;
-}
-
-#qwe:nth-child(1) {
-    margin-top: 30px;
 }

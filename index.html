@@ -17,16 +17,17 @@
                 <div class="header_title">
                     <h1>무명</h1>
                     <ul id="header-list">
-                        <li><a href="#">게시판</a></li>
-                        <li><a href="#">TOP10</a></li>
-                        <li><a href="#">장르</a></li>
-                        <li><a href="#">신작</a></li>
+                        <li><a href="#" onclick="clk1()">게시판</a></li>
+                        <li><a href="#" onclick="clk1()">TOP10</a></li>
+                        <li><a href="#" onclick="clk1()">장르</a></li>
+                        <li><a href="#" onclick="clk1()">신작</a></li>
                     </ul>
                 </div>
 
                 <div class="header-flex-item">
-                    <span style="margin-right: 20px;">검색</span>
-                    <span>프로필</span>
+                    <button style="margin-right: 20px;" onclick="clk1()">검색</button>
+                    <button style="margin-right: 20px;" id="upload">올리기</button>
+                    <button onclick="clk1()">프로필</button>
                 </div>
             </nav>
         </header>
@@ -98,5 +99,47 @@
             </section>
         </main>
     </div>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+    <script src="firebaseSDK.js"></script>
+    
+    <script>
+        function clk1() {
+            alert('아잉 준비중 >_<');
+        }
+
+        const db = firebase.firestore();
+
+        document.getElementById('upload').addEventListener('click',function() {
+            window.location.href='upload.html'
+        })
+
+        db.collection('POST').get().then(결과=>{
+            결과.forEach(doc => {
+                console.log(doc.data())
+                
+                const temp = document.createElement('div')
+                temp.innerHTML =
+                `
+                <article id="qwe">
+                    <img id="image" src="${doc.data().경로}" alt="${doc.data().이름}">
+                    <div id="text">
+                        <h2 style="font-weight: 800;">${doc.data().이름}</h2>
+                        <h5 style="font-weight: 600; padding-bottom: 2px;">작가 마키마</h5>
+                        <h6>${doc.data().설명}</h6>
+                    </div>
+                </article>
+                `
+                document.getElementById('qwer').append(temp)
+            })
+        })
+
+        
+
+        
+    </script>
 </body>
 </html>
