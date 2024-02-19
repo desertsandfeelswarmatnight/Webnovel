@@ -70,12 +70,13 @@
                     () => 업로드작업.snapshot.ref.getDownloadURL().then(url => {
                         console.log('업로드된 경로는', url)
                         db.collection('POST').add({
-                            이름:document.getElementById('title').value,
-                            설명:document.getElementById('content').value,
-                            경로:url
+                            이름: document.getElementById('title').value,
+                            설명: document.getElementById('content').value,
+                            경로: url,
+                            시간: Date.now()
                         }).then(() => {
                             console.log(`성공!!!`)
-                            window.location.href = 'index_header_grid.html'
+                            window.location.href = 'index.html'
                         }).catch(error => console.log(error))
                     })
                 )
