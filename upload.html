@@ -49,11 +49,14 @@
     <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
     <script src="firebaseSDK.js"></script>
     <script>
+        console.log(JSON.parse(localStorage.getItem('user')).displayName)
+        
         document.getElementById('send').addEventListener('click',function() {
             console.log(`제목 : ${document.getElementById('title').value}, 설명 : ${document.getElementById('content').value}`)
 
             if(document.getElementById('title').value !== "" && document.getElementById('content').value !== "" && document.getElementById('image').value !== "") {
                 const db = firebase.firestore()
+                db.settings({ ignoreUndefinedProperties: true });
                 const storage = firebase.storage()
 
                 var 저장할경로 = storage.ref().child('image/' + document.getElementById('image').files[0].name)
@@ -70,14 +73,16 @@
                     () => 업로드작업.snapshot.ref.getDownloadURL().then(url => {
                         console.log('업로드된 경로는', url)
                         db.collection('POST').add({
-                            이름: document.getElementById('title').value,
+                            작가: JSON.parse(localStorage.getItem('user')).displayName,
                             설명: document.getElementById('content').value,
+                            이름: document.getElementById('title').value,
                             경로: url,
                             시간: Date.now()
                         }).then(() => {
                             console.log(`성공!!!`)
+                            
                             window.location.href = 'index.html'
-                        }).catch(error => console.log(error))
+                        }).catch(error => console.log(error.message))
                     })
                 )
             } else {
