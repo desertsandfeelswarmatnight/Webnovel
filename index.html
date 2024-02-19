@@ -156,7 +156,7 @@
                     
                     <div id="text">
                         <h2 style="font-weight: 800;">${doc.data().이름}</h2>
-                        <h5 style="font-weight: 600; padding-bottom: 2px;">작가 마키마</h5>
+                        <h5 style="font-weight: 600; padding-bottom: 2px;">작가 ${doc.data().작가}</h5>
                         <h6>${doc.data().설명}</h6>
                     </div>
                 
@@ -187,7 +187,33 @@
 
 
 
+        document.getElementById('enter').addEventListener('click',function(e){
+            e.preventDefault()
+            
+            firebase.auth().onAuthStateChanged(user=>{ //유저가 로그인시 / 로그아웃시 / 페이지 새로고침시 동작
+                if(user) {
+                    console.log(user.uid)
+                    console.log(user.displayName)
+                    localStorage.setItem('user', JSON.stringify(user))
+                }
+                else
+                    localStorage.removeItem('user')
+            })
 
+            let 이메일값 = document.getElementById('ID').value
+            let 비밀번호값 = document.getElementById('password').value
+
+            firebase.auth().signInWithEmailAndPassword(이메일값, 비밀번호값).then((result) => {
+                
+                console.log(result.user)
+                console.log(result.user.displayName)
+                document.getElementById("userName").innerHTML = JSON.parse(localStorage.getItem('user')).displayName
+                alert("로그인에 성공하셨습니다.")
+                window.location.href = "/html/index.html"
+            }).catch(err=>{
+                console.log(err.message)
+            })
+        })
 
 
 
