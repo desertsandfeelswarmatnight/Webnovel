@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>회원 가입</title>
+        <meta charset="UTF-8">
+        <link href="Sign.Up.css" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <main role="main">
+            <article>
+                <form>
+                    <section id="sign_up-container">
+                        <h1>회원 가입</h1>
+                        <div class="flex-container">
+                            <div class="flex-item">
+                                <label for="ID">아이디</label>
+                                <input type="text" id="ID" placeholder="영문, 숫자 5-11자" autocomplete="username" maxlength="11" required>
+                                <p class="sign_up-validation"></p>
+                            </div>
+                        
+                            <div class="flex-item">
+                                <label for="password1">비밀번호</label>
+                                <input type="password" id="password1" placeholder="숫자, 영문, 특수문자 조합 최소 8자" autocomplete="new-password" style="margin-bottom: 10px;" maxlength="30" required>
+                                <p class="sign_up-validation"></p>
+                                <input type="password" id="password2" placeholder="비밀번호 재입력" autocomplete="new-password" maxlength="30" required>
+                                <p class="sign_up-validation"></p>
+                            </div>
+
+                            <div class="flex-item">
+                                <label for="email">이메일</label>
+                                <input type="email" id="email" autocomplete="email" required>
+                                <p class="sign_up-validation"></p>
+                            </div>
+
+                            <div class="flex-item">
+                                <label for="name">이름</label>
+                                <input type="text" id="nickName" autocomplete="name" required>
+                                <p class="sign_up-validation"></p>
+                            </div>
+                            
+                            <div class="flex-item">
+                                <button type="submit" id="btn">회원 가입</button>
+                                <p class="sign_up-validation"></p>
+                            </div>
+                        </div>
+                    </section>
+                </form>
+                
+            </article>
+        </main>
+    
+        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+        <script src="firebaseSDK.js"></script>
+        <script src="Sign.Up.js"></script>
+    </body>
+</html>

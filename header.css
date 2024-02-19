@@ -16,6 +16,10 @@ body {
     font-family: 'MaruBuri-Regular';
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
 
 #grid_container {
     display: grid;

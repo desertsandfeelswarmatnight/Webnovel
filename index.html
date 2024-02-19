@@ -7,6 +7,7 @@
     
     <link href="header.css?after" rel="stylesheet">
     <link href="main.css?after" rel="stylesheet">
+    <link href="Log.in.css" rel="stylesheet">
 </head>
 
 <body>
@@ -27,13 +28,62 @@
                 <div class="header-flex-item">
                     <button style="margin-right: 20px;" onclick="clk1()">검색</button>
                     <button style="margin-right: 20px;" id="upload">올리기</button>
-                    <button onclick="clk1()">프로필</button>
+                    <button onclick="log_in()">프로필</button>
                 </div>
             </nav>
         </header>
         <div id="header_border2"></div>
-
+        
         <main id="main_grid-container">
+            <section id="log_in-background" class="modal-overlay">
+                <div id="log_in-container">
+
+                
+                    <form>
+                        <h1 style='text-align: center; padding: 45px 0px 45px 0px; font-size: 22px;'>로그인</h1>
+                        <div class="main_flex-container">
+                            <!-- <span class="ms-auto mx-2" id="userName">dasdsadas</span> -->
+                            
+                            <div class="main_flex-item">
+                                <input type="text" id="ID" placeholder="아이디를 입력하세요!" autocomplete="off">
+                            </div>
+                            
+                            <div class="main_flex-item">
+                                <input type="password" id="password" placeholder="비밀번호를 입력하세요!" autocomplete="off">
+                            </div>
+                            
+                            <div class="main_flex-item">
+                                <input type="checkbox" name="log-in_maintain">
+                                <label for="log-in_maintain">로그인 상태 유지</label>
+                            </div>
+                            
+                            <div class="main_flex-item">
+                                <button type="submit" name="enter" id="enter" style="margin-top: 3px;">로그인 </button>
+                            </div>
+                        </div> 
+        
+                        <div class="supplement_flex-container">
+                            <div class="supplement_flex-item">
+                                <a href="Sign.Up.html" target="_blank" title="sign-up">회원 가입</a>
+                            </div>
+        
+                            <div class="supplement_flex-item">
+                                <a href="" style="border-right: 1px solid gray; padding-right: 7px;">아이디 찾기</a>
+                                <a href="">비밀번호 찾기</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <section id="qwer">
                 <article id="qwe">
                     <img id="image" src="img/IMG_6584.jpg" alt="집 잘못 찾아오셨어요, 악역님">
@@ -116,6 +166,32 @@
         })
         
         function clk1() { alert('아잉 준비중 >_<') }
+
+        function log_in() {
+            // document.getElementById('main_grid-container').style.backgroundColor = 'darkgrey'
+            document.getElementById('log_in-background').style = 'position: fixed; top:0; left: 0; bottom: 0; right: 0; background: rgba(0, 0, 0, 0.8);'
+
+            document.getElementById('log_in-container').style.display = 'block';
+        }
+
+
+
+
+
+        document.getElementById('log_in-background').addEventListener("click", e => {
+            const evTarget = e.target
+            if(evTarget.classList.contains("modal-overlay")) {
+                document.getElementById('log_in-background').style.display = "none"
+            }
+        })
+
+
+
+
+
+
+
+
 
         document.getElementById('upload').addEventListener('click',function() { window.location.href='upload.html' })
     </script>
