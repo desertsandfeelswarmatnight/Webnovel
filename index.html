@@ -35,8 +35,8 @@
         <div id="header_border2"></div>
         
         <main id="main_grid-container">
-            <section id="log_in-background" class="modal-overlay">
-                <div id="log_in-container">
+            <section id="log_in-background">
+                <div id="log_in-container" class="modal-overlay">
 
                 
                     <form>
@@ -122,16 +122,7 @@
                     <div id="text">
                         <h2 style="font-weight: 800;">마키마씨</h2>
                         <h5 style="font-weight: 600; padding-bottom: 2px;">작가 미상</h5>
-                        <h6>예쁜 마키마씨입니다
-                        
-                        ෆ˙ ᵕ ˙ෆ 
-                            
-                        ๑❤‿❤๑ 	&nbsp;	&nbsp; ( ◜◒◝ )♡ 
-                            
-                            
-                        ❤⃛ヾ(๑❛ ▿ ◠๑ )
-                        
-                        </h6>
+                        <h6>이쁘다 이뻐</h6>
                     </div>
                 </article>
             </section>
@@ -150,17 +141,39 @@
             결과.forEach(doc => {
                 const temp = document.createElement('article')
                 temp.setAttribute('id','qwe')
-                temp.innerHTML =
-                `
-                    <img id="image" src="${doc.data().경로}" alt="${doc.data().이름}" onclick=location.href="detail.html?id=${doc.id}" onmouseenter=document.body.style.cursor="pointer" onmouseleave=document.body.style.cursor="default">
-                    
-                    <div id="text">
-                        <h2 style="font-weight: 800;">${doc.data().이름}</h2>
-                        <h5 style="font-weight: 600; padding-bottom: 2px;">작가 ${doc.data().작가}</h5>
-                        <h6>${doc.data().설명}</h6>
-                    </div>
                 
-                `
+                
+                if((doc.data().이름).length >= 22) {
+                    //console.log((doc.data().이름).slice(0,22))
+                    
+                    temp.innerHTML =
+                    `
+                        <img id="image" src="${doc.data().경로}" alt="${doc.data().이름}" onclick=location.href="detail.html?id=${doc.id}" onmouseenter=document.body.style.cursor="pointer" onmouseleave=document.body.style.cursor="default">
+                        
+                        <div id="text">
+                            <h2 style="font-weight: 800;">${(doc.data().이름).slice(0,22)}...</h2>
+                            <h5 style="font-weight: 600; padding-bottom: 2px;">작가 ${doc.data().작가}</h5>
+                            <h6>${doc.data().설명}</h6>
+                        </div>
+                    
+                    `
+                } else {
+                    temp.innerHTML =
+                    `
+                        <img id="image" src="${doc.data().경로}" alt="${doc.data().이름}" onclick=location.href="detail.html?id=${doc.id}" onmouseenter=document.body.style.cursor="pointer" onmouseleave=document.body.style.cursor="default">
+                        
+                        <div id="text">
+                            <h2 style="font-weight: 800;">${doc.data().이름}</h2>
+                            <h5 style="font-weight: 600; padding-bottom: 2px;">작가 ${doc.data().작가}</h5>
+                            <h6>${doc.data().설명}</h6>
+                        </div>
+                    
+                    `
+                }
+                
+                
+                
+
                 document.getElementById('qwer').append(temp)
             })
         })
@@ -168,7 +181,6 @@
         function clk1() { alert('아잉 준비중 >_<') }
 
         function log_in() {
-            // document.getElementById('main_grid-container').style.backgroundColor = 'darkgrey'
             document.getElementById('log_in-background').style = 'position: fixed; top:0; left: 0; bottom: 0; right: 0; background: rgba(0, 0, 0, 0.8);'
 
             document.getElementById('log_in-container').style.display = 'block';
@@ -191,27 +203,26 @@
             e.preventDefault()
             
             firebase.auth().onAuthStateChanged(user=>{ //유저가 로그인시 / 로그아웃시 / 페이지 새로고침시 동작
-                if(user) {
-                    console.log(user.uid)
-                    console.log(user.displayName)
-                    localStorage.setItem('user', JSON.stringify(user))
-                }
-                else
-                    localStorage.removeItem('user')
+                // if(user)
+                //     localStorage.setItem('user', JSON.stringify(user))
+                // else
+                //     localStorage.removeItem('user')
             })
 
             let 이메일값 = document.getElementById('ID').value
             let 비밀번호값 = document.getElementById('password').value
 
             firebase.auth().signInWithEmailAndPassword(이메일값, 비밀번호값).then((result) => {
-                
-                console.log(result.user)
-                console.log(result.user.displayName)
-                document.getElementById("userName").innerHTML = JSON.parse(localStorage.getItem('user')).displayName
+                localStorage.setItem('user', JSON.stringify(user))
                 alert("로그인에 성공하셨습니다.")
-                window.location.href = "/html/index.html"
-            }).catch(err=>{
-                console.log(err.message)
+
+                window.location.href = "index.html"
+            }).catch(() => {
+                localStorage.removeItem('user')
+                document.getElementById('ID').value = ''
+                document.getElementById('password').value = ''
+
+                alert('아이디 또는 패스워드를 확인해주세요')
             })
         })
 
@@ -219,7 +230,13 @@
 
 
 
-        document.getElementById('upload').addEventListener('click',function() { window.location.href='upload.html' })
+        document.getElementById('upload').addEventListener('click',function() { 
+            
+            if(localStorage.getItem('user'))
+                window.location.href='upload.html'
+            else
+                log_in()
+        })
     </script>
 </body>
 </html>

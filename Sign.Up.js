@@ -14,35 +14,20 @@ window.addEventListener("load",function() {
         firebase.auth().createUserWithEmailAndPassword(이메일, 패스워드).then((result)=>{
             console.log(result.user)
 
-            
             db.collection('USER').doc(result.user.uid).set({
                 이메일: 이메일,
                 패스워드: 패스워드,
                 이름: 이름
             })
 
-            
-            
-            
-            
-            
             result.user.updateProfile( {displayName: 이름} ).then(()=>{
                 console.log(`이름 : ${result.user.displayName}`)
-
-                
-                
-
                 alert("회원가입 성공!!")
                 window.location.href = "index.html"
-            }).catch(()=>{
-                console.log(`b는 ${b}`)
             })
 
         })
     })
-
-    
-    
     
     
     document.querySelector("#ID").addEventListener("input",function() {
