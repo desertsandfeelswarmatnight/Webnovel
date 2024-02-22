@@ -22,6 +22,7 @@
                         <li><a href="#" onclick="clk1()">TOP10</a></li>
                         <li><a href="#" onclick="clk1()">장르</a></li>
                         <li><a href="#" onclick="clk1()">신작</a></li>
+                        <li><a href="#" onclick="clk1()">작은카드</a></li>
                     </ul>
                 </div>
 
@@ -136,47 +137,47 @@
     <script src="firebaseSDK.js"></script>
     
     <script>
-        const db = firebase.firestore()
-        db.collection('POST').get().then(결과=>{
-            결과.forEach(doc => {
-                const temp = document.createElement('article')
-                temp.setAttribute('id','qwe')
-                
-                
-                if((doc.data().이름).length >= 22) {
-                    //console.log((doc.data().이름).slice(0,22))
-                    
-                    temp.innerHTML =
-                    `
-                        <img id="image" src="${doc.data().경로}" alt="${doc.data().이름}" onclick=location.href="detail.html?id=${doc.id}" onmouseenter=document.body.style.cursor="pointer" onmouseleave=document.body.style.cursor="default">
-                        
-                        <div id="text">
-                            <h2 style="font-weight: 800;">${(doc.data().이름).slice(0,22)}...</h2>
-                            <h5 style="font-weight: 600; padding-bottom: 2px;">작가 ${doc.data().작가}</h5>
-                            <h6>${doc.data().설명}</h6>
-                        </div>
-                    
-                    `
-                } else {
-                    temp.innerHTML =
-                    `
-                        <img id="image" src="${doc.data().경로}" alt="${doc.data().이름}" onclick=location.href="detail.html?id=${doc.id}" onmouseenter=document.body.style.cursor="pointer" onmouseleave=document.body.style.cursor="default">
-                        
-                        <div id="text">
-                            <h2 style="font-weight: 800;">${doc.data().이름}</h2>
-                            <h5 style="font-weight: 600; padding-bottom: 2px;">작가 ${doc.data().작가}</h5>
-                            <h6>${doc.data().설명}</h6>
-                        </div>
-                    
-                    `
-                }
-                
-                
-                
+       const db = firebase.firestore()
+       db.collection('POST').get().then(결과=>{
+           결과.forEach(doc => {
+               const temp = document.createElement('article')
+               temp.setAttribute('id','qwe')
+               
+               
+               if((doc.data().이름).length >= 22) {
+                   //console.log((doc.data().이름).slice(0,22))
+                   
+                   temp.innerHTML =
+                   `
+                       <img id="image" src="${doc.data().경로}" alt="${doc.data().이름}" onclick=location.href="detail.html?id=${doc.id}" onmouseenter=document.body.style.cursor="pointer" onmouseleave=document.body.style.cursor="default">
+                       
+                       <div id="text">
+                           <h2 style="font-weight: 800;">${(doc.data().이름).slice(0,22)}...</h2>
+                           <h5 style="font-weight: 600; padding-bottom: 2px;">작가 ${doc.data().작가}</h5>
+                           <h6>${doc.data().설명}</h6>
+                       </div>
+                   
+                   `
+               } else {
+                   temp.innerHTML =
+                   `
+                       <img id="image" src="${doc.data().경로}" alt="${doc.data().이름}" onclick=location.href="detail.html?id=${doc.id}" onmouseenter=document.body.style.cursor="pointer" onmouseleave=document.body.style.cursor="default">
+                       
+                       <div id="text">
+                           <h2 style="font-weight: 800;">${doc.data().이름}</h2>
+                           <h5 style="font-weight: 600; padding-bottom: 2px;">작가 ${doc.data().작가}</h5>
+                           <h6>${doc.data().설명}</h6>
+                       </div>
+                   
+                   `
+               }
+               
+               
+               
 
-                document.getElementById('qwer').append(temp)
-            })
-        })
+               document.getElementById('qwer').append(temp)
+           })
+       })
         
         function clk1() { alert('아잉 준비중 >_<') }
 
@@ -202,18 +203,18 @@
         document.getElementById('enter').addEventListener('click',function(e){
             e.preventDefault()
             
+            let userData
+
             firebase.auth().onAuthStateChanged(user=>{ //유저가 로그인시 / 로그아웃시 / 페이지 새로고침시 동작
-                // if(user)
-                //     localStorage.setItem('user', JSON.stringify(user))
-                // else
-                //     localStorage.removeItem('user')
+                if(user)
+                    userData = JSON.stringify(user)
             })
 
             let 이메일값 = document.getElementById('ID').value
             let 비밀번호값 = document.getElementById('password').value
 
             firebase.auth().signInWithEmailAndPassword(이메일값, 비밀번호값).then((result) => {
-                localStorage.setItem('user', JSON.stringify(user))
+                localStorage.setItem('user', userData)
                 alert("로그인에 성공하셨습니다.")
 
                 window.location.href = "index.html"
